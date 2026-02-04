@@ -139,10 +139,10 @@ Object.values(fields).forEach(field => {
     field.addEventListener('input', updatePreview);
 });
 
-// CORS proxy for StockTrack API
-const CORS_PROXY = 'https://api.codetabs.com/v1/proxy?quest=';
+// Cloudflare Worker proxy for StockTrack API
+const STOCKTRACK_PROXY = 'https://proud-disk-6217.hannanmaxdev.workers.dev/';
 
-// Product lookup via CORS proxy
+// Product lookup via Cloudflare Worker
 async function lookupProduct() {
     const sku = lookupSkuInput.value.trim().replace(/[^0-9]/g, '');
 
@@ -155,9 +155,8 @@ async function lookupProduct() {
     hideStatus(lookupStatus);
 
     try {
-        // Fetch via CORS proxy
-        const apiUrl = `https://stocktrack.ca/st/search.php?q=${sku}`;
-        const response = await fetch(CORS_PROXY + encodeURIComponent(apiUrl));
+        // Fetch via Cloudflare Worker proxy
+        const response = await fetch(`${STOCKTRACK_PROXY}?sku=${sku}`);
         const data = await response.json();
 
         const results = data.results || [{}];
