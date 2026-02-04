@@ -140,7 +140,7 @@ Object.values(fields).forEach(field => {
 });
 
 // CORS proxy for StockTrack API
-const CORS_PROXY = 'https://corsproxy.io/?';
+const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
 
 // Product lookup via CORS proxy
 async function lookupProduct() {
