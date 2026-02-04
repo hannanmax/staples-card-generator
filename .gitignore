@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Generated files
+cards/
+*.pdf
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Original zip and extracted files
+files.zip
+extracted_files/
+
+# Static logos cache
+static/logos/

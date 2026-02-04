@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staples Card Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Staples Card Generator</h1>
+            <p class="subtitle">Generate 5x7 product display cards for take-to-cash items</p>
+        </header>
+
+        <main>
+            <section class="lookup-section">
+                <h2>Product Lookup</h2>
+                <div class="lookup-form">
+                    <input type="text" id="lookup-sku" placeholder="Enter SKU number" maxlength="20">
+                    <button type="button" id="lookup-btn" class="btn btn-primary">
+                        <span class="btn-text">Look Up Product</span>
+                        <span class="btn-loading" style="display: none;">Searching...</span>
+                    </button>
+                </div>
+                <div id="lookup-status" class="status-message"></div>
+            </section>
+
+            <section class="form-section">
+                <h2>Product Details</h2>
+                <form id="card-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="sku">SKU *</label>
+                            <input type="text" id="sku" name="sku" required maxlength="20" placeholder="e.g., 3047235">
+                        </div>
+                        <div class="form-group">
+                            <label for="brand">Brand</label>
+                            <input type="text" id="brand" name="brand" maxlength="30" placeholder="e.g., BOSE, beats, Apple">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Product Name *</label>
+                        <input type="text" id="name" name="name" required maxlength="100" placeholder="e.g., Bose QuietComfort Ultra Earbuds">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tagline">Tagline</label>
+                        <input type="text" id="tagline" name="tagline" maxlength="60" placeholder="e.g., Make every song count.">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="model">Model #</label>
+                            <input type="text" id="model" name="model" maxlength="20" placeholder="e.g., 890037-0010">
+                        </div>
+                        <div class="form-group">
+                            <label for="upc">UPC (for barcode)</label>
+                            <input type="text" id="upc" name="upc" maxlength="13" placeholder="Leave blank to use SKU">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="image_url">Product Image URL</label>
+                        <input type="text" id="image_url" name="image_url" placeholder="Auto-filled from lookup">
+                    </div>
+
+                    <div class="features-section">
+                        <label>Features (up to 4)</label>
+                        <input type="text" id="feature1" name="feature1" maxlength="80" placeholder="Feature 1">
+                        <input type="text" id="feature2" name="feature2" maxlength="80" placeholder="Feature 2">
+                        <input type="text" id="feature3" name="feature3" maxlength="80" placeholder="Feature 3">
+                        <input type="text" id="feature4" name="feature4" maxlength="80" placeholder="Feature 4">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="clear-btn" class="btn btn-secondary">Clear Form</button>
+                        <button type="submit" id="generate-btn" class="btn btn-primary">
+                            <span class="btn-text">Generate Card</span>
+                            <span class="btn-loading" style="display: none;">Generating...</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="preview-section">
+                <h2>Card Preview</h2>
+                <div class="card-preview" id="card-preview">
+                    <div class="preview-card">
+                        <div class="preview-brand" id="preview-brand">BRAND</div>
+                        <div class="preview-name" id="preview-name">Product Name</div>
+                        <div class="preview-image" id="preview-image">
+                            <span>[Product Image]</span>
+                        </div>
+                        <div class="preview-tagline" id="preview-tagline"></div>
+                        <div class="preview-features" id="preview-features"></div>
+                        <div class="preview-divider"></div>
+                        <div class="preview-bottom">
+                            <div class="preview-info">
+                                <span class="preview-model" id="preview-model"></span>
+                                <span class="preview-sku" id="preview-sku">Sku: -------</span>
+                                <span class="preview-footer-text">Please take to an associate for assistance.</span>
+                                <span class="preview-footer-text">For display purposes only.</span>
+                            </div>
+                            <div class="preview-barcode">[Barcode]</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Built for Staples Canada</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
