@@ -47,7 +47,8 @@ const preview = {
     tagline: document.getElementById('preview-tagline'),
     features: document.getElementById('preview-features'),
     model: document.getElementById('preview-model'),
-    sku: document.getElementById('preview-sku')
+    sku: document.getElementById('preview-sku'),
+    barcode: document.getElementById('preview-barcode')
 };
 
 // Status message helper
@@ -113,6 +114,26 @@ function updatePreview() {
             .join('');
     } else {
         preview.features.innerHTML = '';
+    }
+
+    // Generate preview barcode
+    const upc = fields.upc.value.trim() || fields.sku.value.trim();
+    if (upc && upc !== '-------') {
+        preview.barcode.innerHTML = '<svg id="preview-barcode-svg"></svg>';
+        try {
+            JsBarcode('#preview-barcode-svg', upc, {
+                format: upc.length === 12 ? 'UPC' : upc.length === 13 ? 'EAN13' : 'CODE128',
+                width: 1.5,
+                height: 35,
+                displayValue: true,
+                fontSize: 10,
+                margin: 2
+            });
+        } catch (e) {
+            preview.barcode.innerHTML = '<span style="font-size: 8px; color: #999;">[Invalid Barcode]</span>';
+        }
+    } else {
+        preview.barcode.innerHTML = '<span style="font-size: 8px; color: #999;">[Barcode]</span>';
     }
 }
 
