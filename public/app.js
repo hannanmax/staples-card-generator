@@ -139,7 +139,10 @@ Object.values(fields).forEach(field => {
     field.addEventListener('input', updatePreview);
 });
 
-// Product lookup - direct to StockTrack API
+// CORS proxy for StockTrack API
+const CORS_PROXY = 'https://corsproxy.io/?';
+
+// Product lookup via CORS proxy
 async function lookupProduct() {
     const sku = lookupSkuInput.value.trim().replace(/[^0-9]/g, '');
 
@@ -152,8 +155,9 @@ async function lookupProduct() {
     hideStatus(lookupStatus);
 
     try {
-        // Try direct fetch to StockTrack API
-        const response = await fetch(`https://stocktrack.ca/st/search.php?q=${sku}`);
+        // Fetch via CORS proxy
+        const apiUrl = `https://stocktrack.ca/st/search.php?q=${sku}`;
+        const response = await fetch(CORS_PROXY + encodeURIComponent(apiUrl));
         const data = await response.json();
 
         const results = data.results || [{}];
