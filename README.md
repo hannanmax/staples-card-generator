@@ -8,27 +8,20 @@ A web application to generate 5x7 inch product display cards for Staples retail 
 - **Brand Logos** - Automatically adds brand logos for major brands (Bose, Beats, Apple, Sony, Samsung, JBL, etc.)
 - **Product Images** - Fetches and includes product images on the card
 - **UPC Barcodes** - Generates scannable barcodes from the product UPC
-- **PDF Generation** - Creates print-ready 5x7 inch PDF cards
+- **PDF Generation** - Creates print-ready 5x7 inch PDF cards (client-side)
 
-## Installation
+## Live Demo
 
-1. Clone the repository:
-```bash
-git clone https://github.com/hannanmax/staples-card-generator.git
-cd staples-card-generator
-```
+[https://staples-card-generator.vercel.app](https://staples-card-generator.vercel.app)
 
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+## Tech Stack
 
-3. Run the application:
-```bash
-python app.py
-```
-
-4. Open your browser to `http://127.0.0.1:5001`
+- **Frontend**: Vanilla HTML/CSS/JavaScript
+- **PDF Generation**: jsPDF (client-side)
+- **Barcode Generation**: JsBarcode (client-side)
+- **API**: Vercel Serverless Functions (Node.js)
+- **Product Data**: StockTrack.ca API
+- **Hosting**: Vercel
 
 ## Usage
 
@@ -49,23 +42,29 @@ The generated card includes:
 - UPC barcode
 - "Please take to an associate for assistance" footer
 
-## Requirements
+## Local Development
 
-- Python 3.8+
-- Flask
-- ReportLab
-- python-barcode
-- Pillow
-- requests
-- beautifulsoup4
+1. Clone the repository:
+```bash
+git clone https://github.com/hannanmax/staples-card-generator.git
+cd staples-card-generator
+```
 
-## Tech Stack
+2. Install Vercel CLI:
+```bash
+npm install -g vercel
+```
 
-- **Backend**: Flask (Python)
-- **PDF Generation**: ReportLab
-- **Barcode Generation**: python-barcode
-- **Product Data**: StockTrack.ca API
-- **Frontend**: Vanilla JavaScript, HTML, CSS
+3. Run locally:
+```bash
+vercel dev
+```
+
+4. Open http://localhost:3000
+
+## Deployment
+
+The app is configured for Vercel deployment. Simply push to the main branch and Vercel will automatically deploy.
 
 ## License
 
