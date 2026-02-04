@@ -19,7 +19,7 @@ A web application to generate 5x7 inch product display cards for Staples retail 
 - **Frontend**: Vanilla HTML/CSS/JavaScript
 - **PDF Generation**: jsPDF (client-side)
 - **Barcode Generation**: JsBarcode (client-side)
-- **API**: Vercel Serverless Functions (Node.js)
+- **API Proxy**: Cloudflare Workers (CORS proxy)
 - **Product Data**: StockTrack.ca API
 - **Hosting**: Vercel
 
@@ -50,21 +50,26 @@ git clone https://github.com/hannanmax/staples-card-generator.git
 cd staples-card-generator
 ```
 
-2. Install Vercel CLI:
+2. Serve the public folder with any static server:
 ```bash
-npm install -g vercel
+npx serve public
+# or
+python -m http.server 8000 -d public
 ```
 
-3. Run locally:
-```bash
-vercel dev
-```
-
-4. Open http://localhost:3000
+3. Open http://localhost:3000 (or 8000)
 
 ## Deployment
 
 The app is configured for Vercel deployment. Simply push to the main branch and Vercel will automatically deploy.
+
+### Cloudflare Worker (API Proxy)
+
+The app uses a Cloudflare Worker to proxy requests to StockTrack.ca (to avoid CORS issues). The worker code is in `cloudflare-worker.js`. To deploy your own:
+
+1. Create a free account at [Cloudflare Workers](https://workers.cloudflare.com)
+2. Create a new Worker and paste the code from `cloudflare-worker.js`
+3. Deploy and update the `STOCKTRACK_PROXY` URL in `public/app.js`
 
 ## License
 
