@@ -23,18 +23,36 @@ module.exports = async function handler(req, res) {
 
   try {
     // Fetch from StockTrack.ca API
-    const response = await fetch(`https://stocktrack.ca/st/search.php?q=${cleanSku}`, {
+    const url = `https://stocktrack.ca/st/search.php?q=${cleanSku}`;
+    console.log('Fetching:', url);
+
+    const response = await fetch(url, {
+      method: 'GET',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
-        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/json, text/plain, */*',
+        'Accept-Language': 'en-US,en;q=0.9',
       },
     });
 
+    console.log('Response status:', response.status);
+
     if (!response.ok) {
+      console.log('Response not ok:', response.statusText);
       return res.status(404).json({ error: 'Product not found', sku: cleanSku });
     }
 
-    const data = await response.json();
+    const text = await response.text();
+    console.log('Response length:', text.length);
+
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (parseError) {
+      console.log('JSON parse error:', parseError.message);
+      console.log('Response preview:', text.substring(0, 200));
+      return res.status(500).json({ error: 'Invalid response from API', sku: cleanSku });
+    }
     const results = data.results || [{}];
     const hits = results[0]?.hits || [];
 
